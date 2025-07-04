@@ -12,6 +12,7 @@
 
 
 - name: Frontend Playbook
+  become: true
   hosts: all
   tasks:
     - name: Install nginx
