@@ -1,0 +1,62 @@
+
+#    SYSTEMD(){
+#    systemctl daemon-reload
+#    systemctl enable ${component}
+#    systemctl start ${component}
+#  }
+#
+#    NODEJS() {
+#    dnf module disable nodejs -y
+#    dnf module enable nodejs:20 -y
+#    dnf install nodejs -y
+#    cp ${component}.service /etc/systemd/system/${component}.service
+#
+#    APP_PREREQ
+#
+#    npm install
+#
+#    SYSTEMD
+#  }
+#
+#
+#    PYTHON() {
+#    dnf install python3 gcc python3-devel -y
+#    cp ${component}.service /etc/systemd/system/${component}.service
+#
+#    APP_PREREQ
+#    pip3 install -r requirements.txt
+#
+#    SYSTEMD
+#  }
+#
+#    MAVEN() {
+#    dnf install maven -y
+#    cp ${component}.service /etc/systemd/system/${component}.service
+#
+#    APP_PREREQ
+#
+#    mvn clean package
+#    mv target/${component}-1.0.jar ${component}.jar
+#
+#
+#    SYSTEMD
+#  }
+
+- name: Disable default Nodejs and enable nodejs 20
+  ansible.builtin.shell: dnf module disable nodejs -y ; dnf module enable nodejs:20 -y
+
+
+- name: Install Nodejs
+  ansible.builtin.dnf:
+    name: nodejs
+    state: installed
+
+- name: Load App Pre-Req
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: app prereq
+
+- name: Install Nodejs Dependencies
+  ansible.builtin.shell: npm install
+  args:
+    chdir: /app
