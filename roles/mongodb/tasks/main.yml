@@ -12,7 +12,7 @@
 
 - name: Install MongoDb Server
   ansible.builtin.dnf:
-    name: mongodb.org
+    name: mongodb-org
     state: installed
 
 - name: Replace Listen Address in MongoDb
