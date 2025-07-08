@@ -32,7 +32,7 @@
 - name: Download app content
   ansible.builtin.unarchive:
     src: https://roboshop-artifacts.s3.amazonaws.com/${{component}}-v3.zip
-    dest: /usr/share/nginx/html/
+    dest: /app
     remote_src: yes
 
 
