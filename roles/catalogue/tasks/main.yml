@@ -4,15 +4,15 @@
     tasks_from: nodejs
 
 
-#- name: Install MongoDb- Mongosh
-#  ansible.builtin.unarchive:
-#    name: mongodb-mongosh
+- name: Copy Mongodb repo file
+  ansible.builtin.copy:
+    src: mongo.repo
+    dest: /etc/yum.repos.d/mongo.repo
+
+- name: Load Schema
+  ansible.builtin.shell: mongosh --host  mongodb-dev.gdevops65.shop </app/db/master-data.js
 
 
 
-#  source common.sh
-#  component=catalogue
-#  NODEJS
-#
-#  dnf install mongodb-mongosh -y
-#  mongosh --host  mongodb-dev.gdevops65.shop </app/db/master-data.js
+
+
