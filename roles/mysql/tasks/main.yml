@@ -6,7 +6,7 @@
 
 - name: Install Mysql
   ansible.builtin.dnf:
-    name: mysql.server
+    name: mysql-server
     state: installed
 
 - name: Start MySql
